@@ -1,0 +1,32 @@
+{
+  "repository": "mobilexiaoben-byte/nexus-control-prototype-test2",
+  "ruleset": {
+    "id": 23733077,
+    "name": "prototype-main-required-checks",
+    "enforcement": "active",
+    "required_status_check": "control-gates",
+    "bypass": "none"
+  },
+  "negative_tests": {
+    "direct_push_to_main": {
+      "status": "BLOCKED",
+      "github_status": 409,
+      "reason": "Changes must be made through a pull request; required status check control-gates expected"
+    },
+    "pull_request_with_failed_check": {
+      "pr": 2,
+      "status": "BLOCKED",
+      "check_runs": [35526035320, 35526037576],
+      "check_result": "FAIL",
+      "merge_result": "base branch policy prohibits the merge"
+    }
+  },
+  "positive_test": {
+    "pr": 1,
+    "check_result": "PASS",
+    "merge_result": "MERGED",
+    "merge_commit": "f093088a2505f22d22048a5b195ce4210a273310"
+  },
+  "nexus_current_modified": false,
+  "conclusion": "GitHub Rulesets provides an independent mechanical anti-bypass gate for the development workshop."
+}
