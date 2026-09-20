@@ -1,19 +1,57 @@
 package nexus
 
-default allow := false
+default decision := {"allow": false, "reason": "DENY_DEFAULT"}
 
-device_evidence if {
-  some e in input.evidence
-  e.type == "DEVICE"
+has_evidence(type) if {
+  some e in input.request.evidence
+  e.type == type
   e.status == "PASS"
 }
 
-allow if {
-  input.requested_state == "DEVICE_PASS"
-  device_evidence
+decision := {"allow": true, "reason": "POLICY_PASS"} if {
+  input.operation == "transition"
+  input.request.from_state == "CANDIDATE"
+  input.request.requested_state == "CI_PASS"
 }
 
-deny_reason := "DEVICE_EVIDENCE_REQUIRED" if {
-  input.requested_state == "DEVICE_PASS"
-  not device_evidence
+decision := {"allow": false, "reason": "DEVICE_EVIDENCE_REQUIRED"} if {
+  input.operation == "transition"
+  input.request.requested_state == "DEVICE_PASS"
+  not has_evidence("DEVICE")
+}
+
+decision := {"allow": true, "reason": "POLICY_PASS"} if {
+  input.operation == "transition"
+  input.request.from_state == "CI_PASS"
+  input.request.requested_state == "DEVICE_PASS"
+  has_evidence("DEVICE")
+}
+
+decision := {"allow": false, "reason": "TERMINATION_REQUIRES_DEVICE_PASS"} if {
+  input.operation == "transition"
+  input.request.requested_state == "TERMINATED"
+  input.request.from_state != "DEVICE_PASS"
+}
+
+decision := {"allow": true, "reason": "POLICY_PASS"} if {
+  input.operation == "transition"
+  input.request.from_state == "DEVICE_PASS"
+  input.request.requested_state == "TERMINATED"
+}
+
+decision := {"allow": false, "reason": "SUCCESSOR_BEHAVIOR_NOT_PROVEN"} if {
+  input.operation == "composition"
+  input.request.successor_required == true
+  not has_evidence("SUCCESSOR_BEHAVIOR")
+}
+
+decision := {"allow": true, "reason": "COMPOSITION_PASS"} if {
+  input.operation == "composition"
+  input.request.successor_required == false
+}
+
+decision := {"allow": true, "reason": "COMPOSITION_PASS"} if {
+  input.operation == "composition"
+  input.request.successor_required == true
+  has_evidence("SUCCESSOR_BEHAVIOR")
 }
