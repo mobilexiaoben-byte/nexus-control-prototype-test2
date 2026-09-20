@@ -1,9 +1,12 @@
 {
-  "candidate_id": "C2",
-  "from_state": "CI_PASS",
-  "requested_state": "DEVICE_PASS",
-  "evidence": [
-    {"type": "CI", "status": "PASS"},
-    {"type": "DEVICE", "status": "PASS"}
-  ]
+  "operation": "transition",
+  "request": {
+    "candidate_id": "C2",
+    "from_state": "CI_PASS",
+    "requested_state": "DEVICE_PASS",
+    "evidence": [
+      {"type": "CI", "status": "PASS"},
+      {"type": "DEVICE", "status": "PASS"}
+    ]
+  }
 }
