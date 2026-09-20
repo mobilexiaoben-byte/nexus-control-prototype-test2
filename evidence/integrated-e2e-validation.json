@@ -1,0 +1,29 @@
+{
+  "repository": "mobilexiaoben-byte/nexus-control-prototype-test2",
+  "test": "integrated-control-e2e-v1",
+  "pull_request": 4,
+  "merge_commit": "f2d911e9aedfd271b77bc074174c8eb3a748869f",
+  "workflow_run": 35526306857,
+  "result": "PASS",
+  "validated_layers": [
+    "json_schema_contract_validation",
+    "deterministic_state_transitions",
+    "evidence_semantics",
+    "policy_authorization",
+    "durable_integrity_checked_journal",
+    "terminal_state_refusal",
+    "idempotent_replay",
+    "tamper_detection",
+    "opa_external_gate",
+    "github_ruleset_anti_bypass"
+  ],
+  "negative_cases": {
+    "device_pass_without_device_evidence": "BLOCKED",
+    "optional_policy_without_web_execution": "NOT_PROVEN",
+    "old_golden_without_successor_behavior": "BLOCKED",
+    "post_terminal_monitoring": "BLOCKED",
+    "direct_push_to_main": "BLOCKED",
+    "failed_required_check_merge": "BLOCKED"
+  },
+  "nexus_current_modified": false
+}
