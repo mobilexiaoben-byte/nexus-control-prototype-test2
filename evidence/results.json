@@ -1,0 +1,23 @@
+{
+  "prototype": "NEXUS_TEST_PROTOTYPE_20260920",
+  "nexus_current_modified": false,
+  "incident_guards": {"status": "PASS", "tests": "7/7"},
+  "simple_persistence": {
+    "status": "PASS",
+    "properties": ["restart_recovery", "illegal_transition_no_promotion", "idempotent_replay", "tamper_detection"]
+  },
+  "opa": {
+    "version": "1.20.2",
+    "status": "PASS",
+    "deny_without_device_evidence": true,
+    "allow_with_device_evidence": true
+  },
+  "temporal": {
+    "status": "NOT_VALIDATED",
+    "assessment": "higher complexity; no requirement yet shown that simple durable state cannot cover"
+  },
+  "github_rulesets": {
+    "status": "TEST2_PUBLIC_REPOSITORY_READY"
+  },
+  "decision": "NO_INTEGRATION_INTO_NEXUS_CURRENT"
+}
