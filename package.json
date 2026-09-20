@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/repro.mjs && node tests/simple-restart.mjs"
+    "test": "node tests/repro.mjs && node tests/simple-restart.mjs && node tests/integrated-e2e.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",
