@@ -1,0 +1,23 @@
+{
+  "repository": "mobilexiaoben-byte/nexus-control-prototype-test2",
+  "test": "opa-single-policy-authority",
+  "pull_request": 6,
+  "merge_commit": "074052ed08e5ba958fa5c658db6acccae0ab4305",
+  "workflow_run": 35526579170,
+  "result": "PASS",
+  "single_authority_invariant": {
+    "javascript_policy_file_present": false,
+    "opa_policy_present": true,
+    "executor_calls_opa_directly": true,
+    "opa_unavailable_behavior": "FAIL_CLOSED",
+    "state_changes_when_opa_unavailable": false
+  },
+  "log_markers": [
+    "NEXUS_BASE_GUARDS: PASS",
+    "SIMPLE_RESTART_HARDENED: PASS",
+    "NEXUS_INTEGRATED_E2E: PASS",
+    "OPA_SINGLE_AUTHORITY_FAILCLOSED: PASS"
+  ],
+  "nexus_current_modified": false,
+  "conclusion": "The prototype executor now has one policy authority: OPA. The mirrored JavaScript authorization source was removed."
+}
