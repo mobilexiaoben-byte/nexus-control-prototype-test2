@@ -36,3 +36,5 @@ const good = {
 assert.deepEqual(authorizeTransition(good), { allow: true, reason: 'POLICY_PASS' });
 
 console.log('NEXUS_TEST_PROTOTYPE: 7/7 incident guards PASS');
+
+throw new Error('FORCED_RULESET_TEST_FAILURE');
