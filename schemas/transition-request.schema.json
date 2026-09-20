@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["candidate_id", "from_state", "requested_state", "evidence"],
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 1},
+    "from_state": {"enum": ["CANDIDATE", "CI_PASS", "DEVICE_PASS", "TERMINATED"]},
+    "requested_state": {"enum": ["CI_PASS", "DEVICE_PASS", "TERMINATED"]},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "status"],
+        "properties": {
+          "type": {"enum": ["CI", "DEVICE", "WEB_RUNTIME", "SUCCESSOR_BEHAVIOR"]},
+          "status": {"enum": ["PASS", "FAIL", "NOT_PROVEN"]}
+        }
+      }
+    }
+  }
+}
