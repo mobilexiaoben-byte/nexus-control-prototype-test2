@@ -15,18 +15,24 @@ jobs:
         with:
           node-version: "24"
       - run: npm install --ignore-scripts
-      - name: Contract, state and evidence tests
-        run: npm test
       - name: Install OPA 1.20.2
         run: |
           curl -L --fail --silent --show-error             -o /tmp/opa             https://openpolicyagent.org/downloads/v1.20.2/opa_linux_amd64_static
           chmod +x /tmp/opa
           /tmp/opa version
+      - name: Enforce single policy authority
+        run: |
+          test ! -f src/policy.mjs
+          test -f policies/nexus.rego
+      - name: Contract, state, evidence and integrated OPA E2E tests
+        env:
+          NEXUS_OPA_BIN: /tmp/opa
+        run: npm test
       - name: OPA must deny missing DEVICE evidence
         run: |
-          value=$(/tmp/opa eval -f raw -d policies/nexus.rego -i tests/opa_no_device.json data.nexus.allow)
+          value=$(/tmp/opa eval -f raw -d policies/nexus.rego -i tests/opa_no_device.json data.nexus.decision.allow)
           test "$value" = "false"
       - name: OPA must allow proven DEVICE evidence
         run: |
-          value=$(/tmp/opa eval -f raw -d policies/nexus.rego -i tests/opa_with_device.json data.nexus.allow)
+          value=$(/tmp/opa eval -f raw -d policies/nexus.rego -i tests/opa_with_device.json data.nexus.decision.allow)
           test "$value" = "true"
